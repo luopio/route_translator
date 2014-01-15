@@ -292,7 +292,7 @@ class TranslateRoutesTest < ActionController::TestCase
   def test_translations_depend_on_available_locales
     config_default_locale_settings 'en'
 
-    I18n.stub(:available_locales, [:es, :en, :fr]) do
+    RouteTranslator.config.stub(:included_locales, [:es, :en, :fr]) do
       draw_routes do
         localized do
           get 'people', :to => 'people#index', :as => 'people'

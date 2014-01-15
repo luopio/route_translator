@@ -153,6 +153,9 @@ end
   Defaults to `false`.
 * **locale_param_key** - The param key that will we used to set the
   locale to the newly generated routes. Defaults to :locale
+* **default_locale** - The default locale that should be used. Defaults to `I18n.default_locale`
+* **included_locales** - The locales that should be included in route generation. **default_locale**
+  has to be included. Default value is `I18n.available_locales`
 
 Contributing
 ------------

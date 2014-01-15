@@ -22,12 +22,7 @@ module RouteTranslator
 
     def self.translations_for(app, conditions, requirements, defaults, route_name, anchor, route_set, &block)
       add_untranslated_helpers_to_controllers_and_views(route_name, route_set.named_routes.module)
-      # Make sure the default locale is translated in last place to avoid
-      # problems with wildcards when default locale is omitted in paths. The
-      # default routes will catch all paths like wildcard if it is translated first
-      available_locales = I18n.available_locales.dup
-      available_locales.delete I18n.default_locale
-      available_locales.push I18n.default_locale
+      available_locales = RouteTranslator.config.included_locales
       available_locales.each do |locale|
         new_conditions = conditions.dup
         new_conditions[:path_info] = translate_path(conditions[:path_info], locale)
@@ -70,7 +65,7 @@ module RouteTranslator
     end
 
     def self.default_locale?(locale)
-      I18n.default_locale.to_sym == locale.to_sym
+      RouteTranslator.config.default_locale.to_sym == locale.to_sym
     end
 
     # Tries to translate a single path segment. If the path segment

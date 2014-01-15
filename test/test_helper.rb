@@ -32,7 +32,8 @@ module RouteTranslator
     end
 
     def config_default_locale_settings(locale)
-      I18n.default_locale = locale
+      RouteTranslator.config.default_locale = locale.to_sym
+      RouteTranslator.config.included_locales = I18n.available_locales
     end
 
     def config_force_locale(boolean)
